@@ -209,6 +209,28 @@ public class DisconnectedDBManager
    }
 
 
+public static List<Employees> GetAllEmployees(){
+     List<Employees> employees = new List<Employees>();
+     MySqlConnection con= new MySqlConnection();
+     con.ConnectionString= connectionString;
+     MySqlCommand command=new MySqlCommand();
+     MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+     DataSet dataSet =new DataSet();
+     try
+     {
+        dataAdapter.Fill(dataSet);
+        DataTable dataTable =dataSet.Tables[1];
+        foreach (DataRow dataRow in dataTable.Rows){
+            
+        }
+
+     }
+
+     
+     return employees;
+}
+
+
 }
 
 
