@@ -90,4 +90,42 @@ public class DisplayManager
         Console.WriteLine("Error while Deleting Department Information");
      }
     }
-}
+
+
+    public static void ShowAllEmployees(){
+        List<Employee> employees=UIManager.GetAllEmployees();
+        foreach(Employee employee in employees){
+            Console.WriteLine(employee.Id+"__"+employee.FirstName+"__"+employee.LastName+"__"+employee.Email+"__"+employee.Address+"__"+employee.Password+"__"+employee.DeptId+"__"+employee.ManagerId);
+        }
+    }
+    public static void ShowEmployeeById(){
+        Console.WriteLine("Enter employee id:");
+        int id=int.Parse(Console.ReadLine());
+        Employee employee=UIManager.GetEmployeeById(id);
+            Console.WriteLine(employee.Id+"__"+employee.FirstName+"__"+employee.LastName+"__"+employee.Email+"__"+employee.Address+"__"+employee.Password+"__"+employee.DeptId+"__"+employee.ManagerId);
+    }
+
+    public static void InsertEmployee(){
+        Employee employee=new Employee();
+        Console.WriteLine("Enter employee firstname:");
+        employee.FirstName=Console.ReadLine();
+        Console.WriteLine("Enter employee lastname:");
+        employee.LastName=Console.ReadLine();
+        Console.WriteLine("Enter employee email:");
+        employee.Email=Console.ReadLine();
+        Console.WriteLine("Enter employee address:");
+        employee.Address=Console.ReadLine();
+        Console.WriteLine("Enter employee password:");
+        employee.Password=Console.ReadLine();
+        Console.WriteLine("Enter employee department Id:");
+        employee.DeptId=int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter employee manager Id:");
+        employee.ManagerId=int.Parse(Console.ReadLine());
+        bool  status=UIManager.InsertEmployee(employee);
+        if(status){
+            Console.WriteLine("Employee data inserted successfully");
+        }else
+            Console.WriteLine("Error while Inserted employee Information");
+        }
+
+    }

@@ -24,4 +24,19 @@ public class UIManager{
       return DisconnectedDBManager.DeleteDepartment(id);
     }
 
+    public static List<Employee> GetAllEmployees(){
+      return DisconnectedDBManager.GetAllEmployees();
+    }
+
+    public static Employee GetEmployeeById(int id){
+      return DisconnectedDBManager.GetEmployeeById(id);
+    }
+
+    public static bool InsertEmployee(Employee emp){
+      return DisconnectedDBManager.InsertEmployee(emp);
+    }
+
+    public static bool UpdateEmployee(Employee emp){
+      return DisconnectedDBManager.UpdateEmployee(emp);
+    }
 }
