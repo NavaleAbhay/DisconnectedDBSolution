@@ -2,7 +2,7 @@ using System.Net.Http.Headers;
 
 namespace HR;
 
-public class Employees
+public class Employee
 {
     public int Id{get;set;}
     public string FirstName{get;set;}
