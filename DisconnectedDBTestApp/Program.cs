@@ -1,46 +1,96 @@
-﻿using HR;
-using DAL;
+﻿
 
-// int MainChoice;
-// do
-// {
-//     DisplayManager.ShowDepartmentMenu();
-//     Console.WriteLine("Enter your choice");
-//     MainChoice = int.Parse(Console.ReadLine());
+int MainChoice;
 
-//     switch (MainChoice)
-//     {
-//         case 1:
-//             DisplayManager.ShowAllDepartment();
-//             break;
+do
+{
+    DisplayManager.ShowMainMenu();
+    MainChoice = int.Parse(Console.ReadLine());
 
-//         case 2:
-//             DisplayManager.ShowDepartmentById();
-//             break;
+    int choice = 0;
+    switch (MainChoice)
+    {
 
-//         case 3:
-//             DisplayManager.InsertDepartment();
-//             break;
+        case 1:
 
-//         case 4:
-//             DisplayManager.UpdateDepartment();
-//             break;
+            do
+            {
+                DisplayManager.ShowDepartmentMenu();
+                choice = int.Parse(Console.ReadLine());
 
-//         case 5:
-//             DisplayManager.DeleteDepartment();
-//             break;
+                switch (choice)
+                {
+                    case 1:
+                        DisplayManager.ShowAllDepartment();
+                        break;
+
+                    case 2:
+                        DisplayManager.ShowDepartmentById();
+                        break;
+
+                    case 3:
+                        DisplayManager.InsertDepartment();
+                        break;
+
+                    case 4:
+                        DisplayManager.UpdateDepartment();
+                        break;
+
+                    case 5:
+                        DisplayManager.DeleteDepartment();
+                        break;
 
 
-//         default :
-//             Console.WriteLine("Enter valid Input");
-//             break;
-//     }
+                    default:
+                        Console.WriteLine("Enter valid Input");
+                        break;
+
+                }
+            } while (choice != 0);
+            break;
+
+        case 2:
+            do
+            {
+                DisplayManager.ShowEmployeeMenu();
+                choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        DisplayManager.ShowAllEmployees();
+                        break;
+
+                    case 2:
+                        DisplayManager.ShowEmployeeById();
+                        break;
+
+                    case 3:
+                        DisplayManager.InsertEmployee();
+                        break;
+
+                    case 4:
+                        DisplayManager.UpdateEmployee();
+                        break;
+
+                    case 5:
+                        DisplayManager.DeleteEmployee();
+                        break;
+
+                    default:
+                        Console.WriteLine("Enter valid Input");
+                        break;
+
+                }
+
+            } while (choice != 0);
+            break;
+    }
+} while (MainChoice != 0);
 
 
-// } while (MainChoice != 0);
 
 
-DisplayManager.ShowAllEmployees();
 
-//DisplayManager.ShowEmployeeById();
-//DisplayManager.InsertEmployee();
+
+

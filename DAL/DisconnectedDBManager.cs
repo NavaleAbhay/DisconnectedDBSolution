@@ -1,6 +1,6 @@
-﻿using HR;
+﻿using System.Data;
+using HR;
 using MySql.Data.MySqlClient;
-using System.Data;
 namespace DAL;
 public class DisconnectedDBManager
 {
@@ -15,9 +15,11 @@ public class DisconnectedDBManager
         List<Department> departments = new List<Department>();
         MySqlConnection con = new MySqlConnection();
         con.ConnectionString = connectionString;
+
         MySqlCommand command = new MySqlCommand();
         command.CommandText = "SELECT * FROM departments";
         command.Connection = con;
+
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
         try
@@ -61,7 +63,6 @@ public class DisconnectedDBManager
 
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
-
         try
         {
 
@@ -114,7 +115,6 @@ public class DisconnectedDBManager
             dataAdapter.Fill(dataSet);
             DataTable dataTable = dataSet.Tables[0];
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
-            Console.WriteLine(commandBuilder.GetDeleteCommand().ToString());
 
             // MySqlCommand deletecommand =commandBuilder.GetDeleteCommand();
             // string strDeleteCommand =deletecommand.CommandText;
@@ -138,28 +138,33 @@ public class DisconnectedDBManager
     public static bool UpdateDepartment(Department dept)
     {
         bool status = false;
+
         MySqlConnection con = new MySqlConnection();
         con.ConnectionString = connectionString;
+
         MySqlCommand command = new MySqlCommand();
         command.CommandText = "SELECT * FROM departments";
         command.Connection = con;
+
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
         try
         {
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+
             dataAdapter.Fill(dataSet);
             DataTable table = dataSet.Tables[0];
+
             DataColumn[] keyColumn = new DataColumn[1];
             keyColumn[0] = table.Columns["id"];
             table.PrimaryKey = keyColumn;
+
             DataRow row = table.Rows.Find(dept.Id);
             row["name"] = dept.Name;
             row["location"] = dept.Location;
 
             dataAdapter.Update(dataSet);
             status = true;
-
         }
         catch (Exception e)
         {
@@ -182,7 +187,6 @@ public class DisconnectedDBManager
 
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
-
         try
         {
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
@@ -198,15 +202,11 @@ public class DisconnectedDBManager
 
             dataAdapter.Update(dataSet);
             status = true;
-
-
         }
         catch (Exception e)
         {
             throw e;
         }
-
-
         return status;
     }
 
@@ -216,9 +216,11 @@ public class DisconnectedDBManager
         List<Employee> employees = new List<Employee>();
         MySqlConnection con = new MySqlConnection();
         con.ConnectionString = connectionString;
+
         MySqlCommand command = new MySqlCommand();
         command.CommandText = "SELECT * FROM employees";
         command.Connection = con;
+
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
         try
@@ -235,6 +237,7 @@ public class DisconnectedDBManager
                 string password = dataRow["password"].ToString();
                 int managerId = int.Parse(dataRow["managerid"].ToString());
                 int deptId = int.Parse(dataRow["deptid"].ToString());
+
                 Employee employee = new Employee()
                 {
                     Id = id,
@@ -248,8 +251,6 @@ public class DisconnectedDBManager
 
                 };
                 employees.Add(employee);
-
-
             }
 
         }
@@ -270,18 +271,22 @@ public class DisconnectedDBManager
         Employee employee = null;
         MySqlConnection con = new MySqlConnection();
         con.ConnectionString = connectionString;
+
         MySqlCommand command = new MySqlCommand();
         command.CommandText = "SELECT * FROM employees where id=" + id;
         command.Connection = con;
+
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
         DataSet dataSet = new DataSet();
         try
         {
             dataAdapter.Fill(dataSet);
             DataTable dataTable = dataSet.Tables[0];
+
             DataColumn[] keyColumn = new DataColumn[1];
             keyColumn[0] = dataTable.Columns["id"];
             dataTable.PrimaryKey = keyColumn;
+
             DataRow dataRow = dataTable.Rows.Find(id);
             id = int.Parse(dataRow["id"].ToString());
             string firstName = dataRow["firstname"].ToString();
@@ -291,6 +296,7 @@ public class DisconnectedDBManager
             string password = dataRow["password"].ToString();
             int managerId = int.Parse(dataRow["managerid"].ToString());
             int deptId = int.Parse(dataRow["deptid"].ToString());
+
             employee = new Employee()
             {
                 Id = id,
@@ -311,72 +317,128 @@ public class DisconnectedDBManager
         return employee;
     }
 
-public static bool InsertEmployee(Employee emp){
-    bool status=false;
-    MySqlConnection con=new MySqlConnection();
-    con.ConnectionString=connectionString;
-    MySqlCommand command=new MySqlCommand();
-    command.CommandText="SELECT * FROM employees";
-    command.Connection=con;
-    MySqlDataAdapter dataAdapter=new MySqlDataAdapter(command);
-    DataSet dataSet=new DataSet();
+    public static bool InsertEmployee(Employee emp)
+    {
+        bool status = false;
+        MySqlConnection con = new MySqlConnection();
+        con.ConnectionString = connectionString;
 
-    try{
-        MySqlCommandBuilder commandBuilder=new MySqlCommandBuilder(dataAdapter);
-        dataAdapter.Fill(dataSet);
-        DataTable dataTable=dataSet.Tables[0];
-        DataRow row=dataTable.NewRow();
-        row["id"] =emp.Id;
-        row["firstname"]=emp.FirstName;
-        row["lastname"]=emp.LastName;
-        row["email"]=emp.Email;
-        row["address"]=emp.Address;
-        row["password"]=emp.Password;
-        row["deptid"]=emp.DeptId;
-        row["managerid"]=emp.ManagerId;
-        dataTable.Rows.Add(row);
-        dataAdapter.Update(dataSet);
-        status=true;
+        MySqlCommand command = new MySqlCommand();
+        command.CommandText = "SELECT * FROM employees";
+        command.Connection = con;
+
+        MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+        DataSet dataSet = new DataSet();
+        try
+        {
+            MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter.Fill(dataSet);
+            DataTable dataTable = dataSet.Tables[0];
+
+            DataRow row = dataTable.NewRow();
+            row["id"] = emp.Id;
+            row["firstname"] = emp.FirstName;
+            row["lastname"] = emp.LastName;
+            row["email"] = emp.Email;
+            row["address"] = emp.Address;
+            row["password"] = emp.Password;
+            row["deptid"] = emp.DeptId;
+            row["managerid"] = emp.ManagerId;
+            dataTable.Rows.Add(row);
+            dataAdapter.Update(dataSet);
+            status = true;
         }
-    catch(Exception e){
-    throw e;
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
     }
-    return status;
-}
 
 
-public static bool UpdateEmployee(Employee emp){
-    bool status=false;
-    MySqlConnection con = new MySqlConnection();
-    con.ConnectionString = connectionString;
-    MySqlCommand command = new MySqlCommand();
-    command.CommandText="SELECT * FROM employees";
-    command.Connection = con;
-    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
-    DataSet dataSet = new DataSet();
+    public static bool UpdateEmployee(Employee emp)
+    {
+        bool status = false;
+        MySqlConnection con = new MySqlConnection();
+        con.ConnectionString = connectionString;
 
-    try{
-        MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder();
-        dataAdapter.Fill(dataSet);
-        DataTable dataTable= dataSet.Tables[0];
-        DataColumn[] keyColum=new DataColumn[1];
-        keyColum[0]=dataTable.Columns["id"];
-        dataTable.PrimaryKey=keyColum;
-        DataRow row=dataTable.Rows.Find(emp.Id);
-        row["firstname"]=emp.FirstName;
-        row["lastname"]=emp.LastName;
-        row["email"]=emp.Email;
-        row["address"]=emp.Address;
-        row["password"]=emp.Password;
-        row["managerid"]=emp.ManagerId;
-        row["deptid"]=emp.DeptId;
-        dataAdapter.Update(dataSet);
-      status = true;
-    }catch(Exception e){
-        throw e;
-    }return status;
-}
+        MySqlCommand command = new MySqlCommand();
+        command.CommandText = "SELECT * FROM employees";
+        command.Connection = con;
 
+        MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+        DataSet dataSet = new DataSet();
+        try
+        {
+            MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter.Fill(dataSet);
+            DataTable dataTable = dataSet.Tables[0];
+
+            DataColumn[] keyColum = new DataColumn[1];
+            keyColum[0] = dataTable.Columns["id"];
+            dataTable.PrimaryKey = keyColum;
+
+            DataRow row = dataTable.Rows.Find(emp.Id);
+            row["firstname"] = emp.FirstName;
+            row["lastname"] = emp.LastName;
+            row["email"] = emp.Email;
+            row["address"] = emp.Address;
+            row["password"] = emp.Password;
+            row["managerid"] = emp.ManagerId;
+            row["deptid"] = emp.DeptId;
+            dataAdapter.Update(dataSet);
+            status = true;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return status;
+    }
+
+    public static bool DeleteEmployee(int id)
+    {
+        bool status = false;
+
+        MySqlConnection con = new MySqlConnection();
+        con.ConnectionString = connectionString;
+
+        MySqlCommand command = new MySqlCommand();
+        command.CommandText = "select * from employees where id=" + id;
+        command.Connection = con;
+
+        MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+        DataSet dataSet = new DataSet();
+
+        try
+        {
+
+            MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+
+
+            dataAdapter.Fill(dataSet);
+            DataTable dataTable = dataSet.Tables[0];
+
+            DataColumn[] keycolumn = new DataColumn[1];
+            keycolumn[0] = dataTable.Columns["id"];
+            dataTable.PrimaryKey = keycolumn;
+
+
+            DataRow dataRow = dataTable.Rows.Find(id);
+            dataRow.Delete();
+
+            dataAdapter.Update(dataSet);
+
+            status = true;
+
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+
+        return status;
+    }
 
 }
 
