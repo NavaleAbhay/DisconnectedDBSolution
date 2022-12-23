@@ -58,7 +58,7 @@ public class DisconnectedDBManager
         con.ConnectionString = connectionString;
 
         MySqlCommand command = new MySqlCommand();
-        command.CommandText = "select * from departments where id=" + id;
+        command.CommandText = "select * from departments";
         command.Connection = con;
 
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
@@ -273,7 +273,7 @@ public class DisconnectedDBManager
         con.ConnectionString = connectionString;
 
         MySqlCommand command = new MySqlCommand();
-        command.CommandText = "SELECT * FROM employees where id=" + id;
+        command.CommandText = "SELECT * FROM employees";
         command.Connection = con;
 
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
@@ -404,7 +404,7 @@ public class DisconnectedDBManager
         con.ConnectionString = connectionString;
 
         MySqlCommand command = new MySqlCommand();
-        command.CommandText = "select * from employees where id=" + id;
+        command.CommandText = "select * from employees";
         command.Connection = con;
 
         MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
