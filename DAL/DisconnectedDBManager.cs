@@ -116,9 +116,7 @@ public class DisconnectedDBManager
             DataTable dataTable = dataSet.Tables[0];
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
 
-            // MySqlCommand deletecommand =commandBuilder.GetDeleteCommand();
-            // string strDeleteCommand =deletecommand.CommandText;
-
+         
             DataRow row = dataTable.NewRow();
             row["id"] = dept.Id;
             row["name"] = dept.Name;
